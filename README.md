@@ -15,6 +15,6 @@
 
 5) Fuel the fire. Feel the WHAM.
 
-### B) ad copy 
+### B) Ad copy 
 
 Why conform to sus energy drinks? WHAM pouches ditch the sugar, keep the power. Pocket rebellion for people who think different. Switch lanes.
