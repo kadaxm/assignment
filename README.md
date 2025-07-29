@@ -8,8 +8,8 @@
 
 2) only WHAM. बाकी सब वहम।
 
-3)WHAM le, काम पे लग जा.
+3) WHAM le, काम पे लग जा.
 
-4)Sip WHAM. Skip Drama.
+4) Sip WHAM. Skip Drama.
 
 5) Fuel the fire. Feel the WHAM.
