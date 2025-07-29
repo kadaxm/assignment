@@ -3,7 +3,8 @@
 ## 1. Hero Visual (Instagram Ad or Poster)
 ![image alt](https://github.com/kadaxm/assignment/blob/5b44dd3ef241a8e02a0cda50c8ff75f5d9442f02/final%20wham.png)
 
-## 2. Tagline Pack for WHAM Energy
+## 2.
+###Tagline Pack for WHAM Energy
 1) No cap, just WHAM.
 
 2) only WHAM. बाकी सब वहम।
@@ -13,3 +14,7 @@
 4) Sip WHAM. Skip Drama.
 
 5) Fuel the fire. Feel the WHAM.
+
+### 3. ad copy 
+
+Why conform to sus energy drinks? WHAM pouches ditch the sugar, keep the power. Pocket rebellion for people who think different. Switch lanes.
