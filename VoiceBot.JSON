@@ -1,0 +1,329 @@
+{
+  "name": "vapi bot",
+  "nodes": [
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.body }}",
+        "options": {
+          "systemMessage": "You are Tina, a voice assistant for Dhruv Global School. You are making phone calls to students & parents for admission and applicants for job opportunities.\n\nDhruv Global School is a leading educational institution committed to nurturing well-rounded individuals through a balanced focus on academics, creativity, and character development. With modern infrastructure, experienced faculty, and a student-centric approach, Dhruv provides a safe, inclusive, and future-ready learning environment from pre-primary to senior secondary levels.\n\nServices offered:\n1. School Admissions - from pre-primary to senior secondary levels with world-class infrastructure, experienced faculty, safe campus culture, and national/international curriculum options\n2. Job Opportunities - career opportunities for educators and support staff with professional development programs and competitive compensation\n\nYour task is to collect structured enquiry data from callers. Follow this sequence:\n1. Ask for their full name\n2. Ask for their phone number\n3. Ask for their email address (mention it's optional)\n4. Ask which campus they are interested in\n5. Ask about their purpose of enquiry (Admissions or Job)\n6. If Admissions: Ask for grade of interest\n   If Job: Ask for role of interest\n7. Ask if they have any additional message or notes\n8. Confirm all collected details with the caller\n\nAfter confirmation:\n- For Admissions: Say \"Thanks, [Name]. Your admission enquiry has been forwarded to our admissions team. They'll reach out to you soon.\"\n- For Job: Say \"Thanks, [Name]. We've sent your job application details to our HR team. They'll contact you if your profile matches any openings.\"\n- Then end the call by saying \"goodbye\"\n\nIf the caller is not interested in admissions or job opportunities, politely end the call by saying \"Sorry I cannot help you with that\" and \"goodbye.\"\n\n- Always end the call by saying \"goodbye\". (use this exact word to end the call)\n- Do not go off-topic or deviate from the main purpose of the call.\n- This is a voice conversation, so keep all your responses short, crisp and simple, like in a real conversation.\n- Do not engage or respond to questions or queries that are not related to school admissions or job opportunities at Dhruv Global School."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.1,
+      "position": [
+        80,
+        48
+      ],
+      "id": "0a17b0d1-142f-436e-abf5-eae53c868f26",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1OEfRemmx9oJnMuZ4pEFGWu7-_QN2hoseJNroQNNabNc",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Sheet1",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.6,
+      "position": [
+        704,
+        336
+      ],
+      "id": "abf3c15f-cb33-4a20-9d2e-e9d7ee71b2e2",
+      "name": "Append row in sheet in Google Sheets",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "XmneERe7WYsIULXj",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "vapiassistant",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -240,
+        80
+      ],
+      "id": "22391ba0-c452-4757-8fbe-0714922cad0b",
+      "name": "Webhook",
+      "webhookId": "8d94e4ca-a998-4efd-9094-f46a7804730c"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        960,
+        32
+      ],
+      "id": "e4f5d9df-52df-49d6-a8f1-5112175c6909",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        -16,
+        304
+      ],
+      "id": "ce7f9164-9b90-4b6d-9270-bf578024d95b",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "2uTJxsAhUEdVCQ7M",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "public": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        -464,
+        -128
+      ],
+      "id": "be9e0c65-7082-4d30-bede-7aa5e2c5719e",
+      "name": "When chat message received",
+      "webhookId": "56b7a55d-4834-4011-aa56-cddbc609cc4f"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "base": {
+          "__rl": true,
+          "value": "appxLEXvq80KFDa1u",
+          "mode": "list",
+          "cachedResultName": "BTA2",
+          "cachedResultUrl": "https://airtable.com/appxLEXvq80KFDa1u"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblrPxpPJKYXBkzUq",
+          "mode": "list",
+          "cachedResultName": "Table 1",
+          "cachedResultUrl": "https://airtable.com/appxLEXvq80KFDa1u/tblrPxpPJKYXBkzUq"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Status": "Un-Called",
+            "Name": "={{ $fromAI('Name__using_to_match_', ``, 'string') }}",
+            "Email": "={{ $fromAI('Email__using_to_match_', ``, 'string') }}",
+            "Phone no.": "={{ $fromAI('Phone_no___using_to_match_', ``, 'string') }}"
+          },
+          "matchingColumns": [
+            "id",
+            "Name",
+            "Phone no.",
+            "Email",
+            "Status",
+            "recor"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": false
+            },
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Phone no.",
+              "displayName": "Phone no.",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Called",
+                  "value": "Called"
+                },
+                {
+                  "name": "Un-Called",
+                  "value": "Un-Called"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "recor",
+              "displayName": "recor",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtableTool",
+      "typeVersion": 2.1,
+      "position": [
+        400,
+        384
+      ],
+      "id": "3d9e6525-be16-4342-896e-47274fe58826",
+      "name": "Update record in Airtable",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "pgU1ryAmhzxMy9H6",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Append row in sheet in Google Sheets": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        []
+      ]
+    },
+    "Update record in Airtable": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "35af983c-4c9f-4de6-b657-685b069d1cf8",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "5dd8b669fc59247cff1e370f9eb02c9c1e3b848e4741f1747fc7a2bc5ea6513f"
+  },
+  "id": "lU5SXY4GObkjegND",
+  "tags": []
+}
