@@ -56,3 +56,27 @@ Once you fill out the [form](https://tally.so/r/w84Gkx):
 ---
 
 > ℹ️ _Ensure your webhook URL is connected properly inside Tally's integration settings. Airtable columns should match incoming data fields. The HTTP request must use correct Vapi credentials and Assistant ID._
+
+---
+
+## ⚠️ Notes on `voicebot.json` Workflow (Incomplete)
+
+The second part of the automation – which processes the voice call conversation and extracts structured data from it – is currently **incomplete** due to the following reasons:
+
+1. **Ngrok & Docker Configuration Issues**
+   - I faced difficulties in consistently hosting my webhook endpoint due to conflicts with **Docker container routing** and **Ngrok tunneling**.
+   - As a result, the Vapi platform was unable to reliably reach the webhook to deliver conversation data.
+
+2. **Vapi Not Sending Response Data**
+   - Although the Vapi assistant successfully makes the call and completes the conversation,
+     it **does not send the structured JSON payload** back to my webhook URL as expected.
+   - The webhook in `voicebot.json` receives a "check" ping (indicating Vapi is trying),
+     but no actual **conversation transcript or data** is received.
+
+3. **Workflow Yet to be Connected to Post-Call Actions**
+   - Steps like:
+     - Parsing structured data (Name, Phone, Purpose, etc.)
+     - Writing to Google Sheets or Airtable
+     - Triggering confirmation emails based on the type of inquiry (Job / Admission)
+     - Using `IF` or `Switch` nodes for branching logic  
+     are **not yet implemented** because the required conversation data hasn't been received from the webhook.
