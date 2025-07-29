@@ -59,7 +59,7 @@ Once you fill out the [form](https://tally.so/r/w84Gkx):
 
 ---
 
-## ⚠️ Notes on `voicebot.json` Workflow (Incomplete)
+## ⚠️ Notes on [`voicebot.json`](https://github.com/kadaxm/assignment/blob/0db0aaf77dc13534b101f190ed3be4882df2ddc4/VoiceBot.JSON) Workflow (Incomplete)
 
 The second part of the automation – which processes the voice call conversation and extracts structured data from it – is currently **incomplete** due to the following reasons:
 
